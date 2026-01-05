@@ -1,12 +1,25 @@
 module.exports = function(grunt) {
 	var fs = require('fs'),
 		PACK = grunt.file.readJSON('package.json'),
+		COPYPACK = grunt.file.readJSON('copypack.json'),
 		path = require('path');
 	require('load-grunt-tasks')(grunt);
 	require('time-grunt')(grunt);
 	grunt.initConfig({
 		globalConfig : {},
 		pkg : PACK,
+		copy: {
+			main: {
+				files: [
+					{
+						expand: true,
+						cwd: 'assets/plugins',
+						src: ['**/*.*'],
+						dest: COPYPACK.dest,
+					},
+				]
+			}
+		},
 		pug: {
 			main: {
 				options: {
@@ -16,6 +29,7 @@ module.exports = function(grunt) {
 					separator:  '\n',
 					data: function(dest, src) {
 						return {
+							"pagetitle": PACK.description
 						}
 					}
 				},
@@ -32,6 +46,7 @@ module.exports = function(grunt) {
 		}
 	});
 	grunt.registerTask('default',[
-		'pug'
+		'pug',
+		'copy'
 	]);
 }

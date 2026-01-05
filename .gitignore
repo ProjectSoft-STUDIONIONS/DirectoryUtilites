@@ -4,3 +4,4 @@ test
 tests
 
 *.sublime-workspace
+copypack.json
