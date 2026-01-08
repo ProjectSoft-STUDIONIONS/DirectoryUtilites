@@ -2,6 +2,7 @@
 
 /src export-ignore
 /docs export-ignore
+/test export-ignore
 /LICENSE export-ignore
 /.* export-ignore
 /*.sublime-* export-ignore
