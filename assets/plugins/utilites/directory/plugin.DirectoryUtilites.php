@@ -1,21 +1,75 @@
 <?php
-if (!defined('MODX_BASE_PATH')) {
+/**
+ * DirectoryUtilites
+ *
+ * Плагин Evolution CMS для работы с директориями.
+ *
+ * @category     plugin
+ * @version      1.0.0
+ * @package      evo
+ * @internal     @events OnManagerLogin,OnManagerLogout,OnDocFormRender,onAfterMoveDocument,OnDocFormSave,OnDocDuplicate
+ * @internal     @modx_category Manager and Admin
+ * @internal     @properties &leftPad=Длина имени директории;list;4,5,6,7,8,9,10;4;4;Описание для параметра;
+ * @internal     @installset base
+ * @internal     @disabled 0
+ * @homepage     https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilities#readme
+ * @license      https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilities/blob/master/LICENSE GNU General Public License v3.0 (GPL-3.0)
+ * @reportissues https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilities/issues
+ * @author       Чернышёв Андрей aka ProjectSoft <projectsoft2009@yandex.ru>
+ * @lastupdate   2026-01-08
+ */
+
+if (!defined('MODX_BASE_PATH')):
 	http_response_code(403);
 	die('For');
-}
+endif;
 
 $e = &$modx->event;
 $params = $e->params;
 
 $params["leftPad"] = $params["leftPad"] ? (int) $params["leftPad"] : 4;
 $params["leftPad"] = $params["leftPad"] > 4 ? $params["leftPad"] : 4;
+
+$permsFolder = octdec($modx->config['new_folder_permissions']);
+
 // Файл теста (смотрим что в событиях)
 $file = dirname(__FILE__) . "/params.txt";
 
+if(!function_exists('removeEmptyFolders')):
+	function removeEmptyFolders($path){
+		$isFolderEmpty = true;
+		$pathForGlob = (substr($path, -1) == "/") ? $path . "*" : $pathForGlob = $path . DIRECTORY_SEPARATOR . "*";
+		// смотрим что есть внутри раздела
+		foreach (glob($pathForGlob) as $file):
+			if (is_dir($file)):
+				if (!removeEmptyFolders($file)):
+					$isFolderEmpty = false;
+				endif;
+			else:
+				$isFolderEmpty = false;
+			endif;
+		endforeach;
+		if ($isFolderEmpty):
+			@rmdir($path);
+		endif;
+		return $isFolderEmpty;
+	}
+endif;
+
+if(!function_exists('getDocumentParent')):
+	function getDocumentParent(\DocumentParser $modx, $id, &$lists, $params)
+	{
+		$table_content = $modx->getFullTableName('site_content');
+		$parent = $modx->db->getValue($modx->db->select('parent', $table_content, "id='{$id}'"));
+		if($parent):
+			$lists[] = str_pad($parent, $params["leftPad"], "0", STR_PAD_LEFT);
+			getDocumentParent($modx, $parent, $lists, $params);
+		endif;
+	}
+endif;
+
 switch ($e->name) {
-	/**
-	 * Создание директорий
-	 */
+	// Создание директорий
 	case "OnDocFormRender":
 	case "onAfterMoveDocument":
 	case "OnDocFormSave":
@@ -57,15 +111,30 @@ switch ($e->name) {
 		// Получаем id документа
 		$id = $params['id'] ? (int) $params['id'] : ($params['id_document'] ? (int) $params['id_document'] : 0);
 		// Получаем путь assets согласно настроек сайта (у каждого менеджера может быть свой)
-		if($id):
-			// Получаем путь согласно дерева сайта
-			// Создаём директорию в директориях files, images, media
+		$assetsPath = $modx->config['rb_base_dir'];
+		// Получаем путь согласно дерева сайта
+		$lists = array(str_pad($id, $params["leftPad"], "0", STR_PAD_LEFT));
+		// Создаём директорию в директориях files, images, media
+		getDocumentParent($modx, $id, $lists, $params);
+
+		$dir = implode('/', array_reverse($lists));
+
+		if(!is_dir($assetsPath."files/".$dir)):
+			@mkdir($assetsPath."files/".$dir, $permsFolder, true);
+		endif;
+		if(!is_dir($assetsPath."images/".$dir)):
+			@mkdir($assetsPath."images/".$dir, $permsFolder, true);
+		endif;
+		if(!is_dir($assetsPath."media/".$dir)):
+			@mkdir($assetsPath."media/".$dir, $permsFolder, true);
 		endif;
 		break;
-	/**
-	 * Удаление пустых директорий при входе/выходе
-	 */
+	// Удаление пустых директорий при входе/выходе
 	case "OnManagerLogin":
 	case "OnManagerLogout":
+		// Запустим для директорий images, files, media
+		removeEmptyFolders(MODX_BASE_PATH . 'assets/images');
+		removeEmptyFolders(MODX_BASE_PATH . 'assets/files');
+		removeEmptyFolders(MODX_BASE_PATH . 'assets/media');
 		break;
 }
