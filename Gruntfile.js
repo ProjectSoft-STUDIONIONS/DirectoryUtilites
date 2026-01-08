@@ -6,12 +6,35 @@ module.exports = function(grunt) {
 		date = new  Date(),
 		year = date.getFullYear(),
 		month = String(date.getMonth() + 1).padStart(2, "0"),
-		day = String(date.getDate()).padStart(2, "0");
+		day = String(date.getDate()).padStart(2, "0"),
+		replacement = `/**
+ * ${PACK.title}
+ *
+ * Плагин Evolution CMS для работы с директориями.
+ *
+ * @category     plugin
+ * @version      ${PACK.version}
+ * @package      evo
+ * @internal     @events OnManagerLogin,OnManagerLogout,OnDocFormRender,onAfterMoveDocument,OnDocFormSave,OnDocDuplicate
+ * @internal     @modx_category Manager and Admin
+ * @internal     @properties &leftPad=Длина имени директории;list;4,5,6,7,8,9,10;4;4;Описание для параметра;
+ * @internal     @installset base
+ * @internal     @disabled 0
+ * @homepage     ${PACK.homepage}#readme
+ * @license      ${PACK.homepage}/blob/master/LICENSE GNU General Public License v3.0 (GPL-3.0)
+ * @reportissues ${PACK.homepage}/issues
+ * @author       ${PACK.author}
+ * @lastupdate   ${year}-${month}-${day}
+ */`;
 	require('load-grunt-tasks')(grunt);
 	require('time-grunt')(grunt);
+
 	grunt.initConfig({
 		globalConfig : {},
 		pkg : PACK,
+		clean: {
+			zip: ['*.zip']
+		},
 		'string-replace': {
 			tpl: {
 				files: {
@@ -21,30 +44,12 @@ module.exports = function(grunt) {
 					replacements: [
 						{
 							pattern: /(\/\*(?:[^*]|[\s]|(\*+(?:[^*/]|[\s])))*\*+\/)/g,
-							replacement: `/**
- * ${PACK.title}
- *
- * Плагин Evolution CMS для работы с директориями.
- *
- * @category     plugin
- * @version      ${PACK.version}
- * @package      evo
- * @internal     @events OnManagerLogin,OnManagerLogout,OnDocFormRender,onAfterMoveDocument,OnDocFormSave,OnDocDuplicate
- * @internal     @modx_category Manager and Admin
- * @internal     @properties &leftPad=Длина имени директории;list;4,5,6,7,8,9,10;4;4;Описание для параметра;
- * @internal     @installset base
- * @internal     @disabled 0
- * @homepage     ${PACK.homepage}#readme
- * @license      ${PACK.homepage}/blob/master/LICENSE GNU General Public License v3.0 (GPL-3.0)
- * @reportissues ${PACK.homepage}/issues
- * @author       ${PACK.author}
- * @lastupdate   ${year}-${month}-${day}
- */`
-						}
-					]
-				}
+							replacement: replacement,
+						},
+					],
+				},
 			},
-			plugin: {
+			php: {
 				files: {
 					'assets/plugins/utilites/directory/': 'assets/plugins/utilites/directory/**',
 				},
@@ -52,29 +57,11 @@ module.exports = function(grunt) {
 					replacements: [
 						{
 							pattern: /(\/\*(?:[^*]|[\s]|(\*+(?:[^*/]|[\s])))*\*+\/)/,
-							replacement: `/**
- * ${PACK.title}
- *
- * Плагин Evolution CMS для работы с директориями.
- *
- * @category     plugin
- * @version      ${PACK.version}
- * @package      evo
- * @internal     @events OnManagerLogin,OnManagerLogout,OnDocFormRender,onAfterMoveDocument,OnDocFormSave,OnDocDuplicate
- * @internal     @modx_category Manager and Admin
- * @internal     @properties &leftPad=Длина имени директории;list;4,5,6,7,8,9,10;4;4;Описание для параметра;
- * @internal     @installset base
- * @internal     @disabled 0
- * @homepage     ${PACK.homepage}#readme
- * @license      ${PACK.homepage}/blob/master/LICENSE GNU General Public License v3.0 (GPL-3.0)
- * @reportissues ${PACK.homepage}/issues
- * @author       ${PACK.author}
- * @lastupdate   ${year}-${month}-${day}
- */`
-						}
-					]
-				}
-			}
+							replacement: replacement,
+						},
+					],
+				},
+			},
 		},
 		pug: {
 			main: {
@@ -89,7 +76,7 @@ module.exports = function(grunt) {
 							"description":   PACK.description,
 							"keywords":      PACK.keywords,
 						}
-					}
+					},
 				},
 				files: [
 					{
@@ -97,9 +84,9 @@ module.exports = function(grunt) {
 						cwd: __dirname + '/src/pug/',
 						src: [ 'index.pug' ],
 						dest: __dirname + '/docs/',
-						ext: '.html'
+						ext: '.html',
 					},
-				]
+				],
 			},
 		},
 		copy: {
@@ -111,13 +98,28 @@ module.exports = function(grunt) {
 						src: ['**/*.*'],
 						dest: COPYPACK.dest,
 					},
-				]
-			}
+				],
+			},
+		},
+		compress: {
+			main: {
+				options: {
+					archive: 'DirectoryUtilites.zip',
+				},
+				files: [
+					{
+						src: ['assets/**', 'install/**'],
+						dest: 'DirectoryUtilites/',
+					},
+				],
+			},
 		},
 	});
 	grunt.registerTask('default', [
+		'clean',
 		'string-replace',
 		'pug',
-		'copy'
+		//'copy',
+		'compress'
 	]);
 }

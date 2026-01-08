@@ -26,10 +26,10 @@
 	"author": "Чернышёв Андрей aka ProjectSoft <projectsoft2009@yandex.ru>",
 	"type": "commonjs",
 	"main": "Gruntfile.js",
-	"directories": {
-		"doc": "docs"
-	},
 	"scripts": {
+		"inst": "npm i",
+		"build": "grunt -v",
+		"preinstall": "npm i -g less bower && bower install",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"dependencies": {
