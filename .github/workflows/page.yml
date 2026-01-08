@@ -50,6 +50,6 @@ jobs:
           # Upload entire repository
           path: './docs/'
 
-      - name: Развертывание на странице GitHub - https://projectsoft-studionions.github.io/food-module/
+      - name: Развертывание на странице GitHub - https://projectsoft-studionions.github.io/DirectoryUtilities/
         id: deployment
         uses: actions/deploy-pages@v4
