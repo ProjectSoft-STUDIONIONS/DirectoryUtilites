@@ -1,12 +1,12 @@
 {
-	"name": "directoryutilities",
+	"name": "directoryutilites",
 	"description": "Плагин Evolution CMS для работы с директориями",
 	"main": "Gruntfile.js",
 	"authors": [
 		"ProjectSoft <projectsoft2009@yandex.ru>"
 	],
 	"license": "GPL-3.0",
-	"homepage": "https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilities",
+	"homepage": "https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilites",
 	"ignore": [
 		"**/.*",
 		"node_modules",

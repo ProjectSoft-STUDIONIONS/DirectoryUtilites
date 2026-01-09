@@ -105,12 +105,12 @@ module.exports = function(grunt) {
 		compress: {
 			main: {
 				options: {
-					archive: 'DirectoryUtilities.zip',
+					archive: `${PACK.title}.zip`,
 				},
 				files: [
 					{
 						src: ['assets/**', 'install/**'],
-						dest: 'DirectoryUtilities/',
+						dest: `${PACK.title}/`,
 					},
 				],
 			},

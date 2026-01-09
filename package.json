@@ -1,7 +1,7 @@
 {
-	"name": "directoryutilities",
+	"name": "directoryutilites",
 	"version": "1.0.0",
-	"title": "DirectoryUtilities",
+	"title": "DirectoryUtilites",
 	"description": "Плагин Evolution CMS для работы с директориями",
 	"keywords": [
 		"directory",
@@ -14,13 +14,13 @@
 		"plugin-directory-utilites",
 		"utilites"
 	],
-	"homepage": "https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilities",
+	"homepage": "https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilites",
 	"bugs": {
-		"url": "https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilities/issues"
+		"url": "https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilites/issues"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilities.git"
+		"url": "git+https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilites.git"
 	},
 	"license": "GPL-3.0",
 	"author": "Чернышёв Андрей aka ProjectSoft <projectsoft2009@yandex.ru>",
