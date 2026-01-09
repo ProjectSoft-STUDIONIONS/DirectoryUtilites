@@ -109,7 +109,10 @@ module.exports = function(grunt) {
 				},
 				files: [
 					{
-						src: ['assets/**', 'install/**'],
+						src: [
+							'assets/**',
+							'install/**',
+						],
 						dest: `${PACK.title}/`,
 					},
 				],

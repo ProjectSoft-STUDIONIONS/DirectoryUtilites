@@ -75,6 +75,7 @@ switch ($e->name) {
 	case "OnDocFormSave":
 	case "OnDocDuplicate":
 		/**
+		 * id - id документа
 		 * OnDocFormRender
 			Array
 			(
@@ -83,6 +84,15 @@ switch ($e->name) {
 			    [leftPad] => 4
 			)
 		 *
+		 * OnDocFormSave
+			Array
+			(
+			    [id] => 1
+			    [mode] => upd
+			    [leftPad] => 4
+			)
+		 *
+		 * id_document - id документа
 		 * onAfterMoveDocument
 			Array
 			(
@@ -92,14 +102,7 @@ switch ($e->name) {
 			    [leftPad] => 4
 			)
 		 *
-		 * OnDocFormSave
-			Array
-			(
-			    [mode] => upd
-			    [id] => 1
-			    [leftPad] => 4
-			)
-		 *
+		 * new_id - id документа
 		 * OnDocDuplicate
 			Array
 			(
@@ -109,15 +112,14 @@ switch ($e->name) {
 			)
 		 */
 		// Получаем id документа
-		$id = $params['id'] ? (int) $params['id'] : ($params['id_document'] ? (int) $params['id_document'] : 0);
-		// Получаем путь assets согласно настроек сайта (у каждого менеджера может быть свой)
-		$assetsPath = $modx->config['rb_base_dir'];
+		$id = $params['new_id'] ? (int) $params['new_id'] : ($params['id_document'] ? (int) $params['id_document'] : ($params['id'] ? (int) $params['id'] : 0));
 		// Получаем путь согласно дерева сайта
 		$lists = array(str_pad($id, $params["leftPad"], "0", STR_PAD_LEFT));
 		// Создаём директорию в директориях files, images, media
 		getDocumentParent($modx, $id, $lists, $params);
-
 		$dir = implode('/', array_reverse($lists));
+
+		$assetsPath = $modx->config['rb_base_dir'];
 
 		if(!is_dir($assetsPath."files/".$dir)):
 			@mkdir($assetsPath."files/".$dir, $permsFolder, true);
@@ -133,8 +135,9 @@ switch ($e->name) {
 	case "OnManagerLogin":
 	case "OnManagerLogout":
 		// Запустим для директорий images, files, media
-		removeEmptyFolders(MODX_BASE_PATH . 'assets/images');
-		removeEmptyFolders(MODX_BASE_PATH . 'assets/files');
-		removeEmptyFolders(MODX_BASE_PATH . 'assets/media');
+		$assetsPath = $modx->config['rb_base_dir'];
+		removeEmptyFolders($assetsPath . 'images');
+		removeEmptyFolders($assetsPath . 'files');
+		removeEmptyFolders($assetsPath . 'media');
 		break;
 }
