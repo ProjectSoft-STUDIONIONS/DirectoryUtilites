@@ -68,6 +68,51 @@ module.exports = function(grunt) {
 				},
 			},
 		},
+		less: {
+			css: {
+				options : {
+					compress: false,
+					ieCompat: false,
+					plugins: [],
+				},
+				files : {
+					// docs
+					'src/css/main.css': [
+						'src/css/main.less'
+					]
+				},
+			},
+		},
+		autoprefixer:{
+			options: {
+				browsers: [
+					"last 4 version"
+				],
+				cascade: true
+			},
+			css: {
+				files: {
+					// docs
+					'src/css/main.css': [
+						'src/css/main.css'
+					],
+				},
+			}
+		},
+		cssmin: {
+			options: {
+				mergeIntoShorthands: false,
+				roundingPrecision: -1
+			},
+			minify: {
+				files: {
+					// docs
+					'src/css/main.css': [
+						'src/css/main.css'
+					],
+				},
+			}
+		},
 		pug: {
 			main: {
 				options: {
@@ -121,6 +166,10 @@ module.exports = function(grunt) {
 	});
 	grunt.registerTask('default', [
 		'clean',
+		// Компиляция CSS
+		'less',
+		'autoprefixer',
+		'cssmin',
 		'string-replace',
 		'pug',
 		'copy',
