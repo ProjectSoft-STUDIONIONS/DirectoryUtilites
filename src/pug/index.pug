@@ -16,20 +16,25 @@ html(lang="ru")
 		meta(name="description" content=`${description}`)
 		meta(name="keywords" content=keywords.toString())
 		meta(name="author" content="ProjectSoft")
-		meta(name="og:url" content="")
-		meta(name="og:type" content="website")
-		meta(name="og:title" content=`${title} - Плагин Evolution CMS`)
-		meta(name="og:description" content=`${description}`)
+		meta(name="image" content=`${site}/${title}/assets/images/screen.png`)
+		meta(property="og:url" content=`${site}/${title}/`)
+		meta(property="og:type" content="website")
+		meta(property="og:title" content=`${title} - Плагин Evolution CMS`)
+		meta(property="og:description" content=`${description}`)
+		meta(property="og:image" content=`${site}/${title}/assets/images/screen.png`)
+		meta(property="og:image:width" content="1918")
+		meta(property="og:image:height" content="965")
+		meta(property="og:image:type" content="image/png")
 		meta(name="twitter:card" content="summary_large_image")
-		link(rel="icon" type="image/png" href="/favicon.png" sizes="256x256")
-		link(rel="shortcut icon" href="/favicon.ico")
+		link(rel="icon" type="image/png" href=`${site}/favicon.png` sizes="256x256")
+		link(rel="shortcut icon" href=`${site}/favicon.ico`)
 		meta(name="apple-mobile-web-app-title" content=`${title} - Плагин Evolution CMS`)
 		style
 			include ../css/main.css
 	body
 		header
 			div
-				a(href="https://projectsoft-studionions.github.io/")
+				a(href=`${site}`)
 			div
 				h1
 					|Плагин «#{title}» для Evolution CMS
@@ -111,7 +116,7 @@ html(lang="ru")
 				a(href="https://github.com/ProjectSoft-STUDIONIONS" target="_blank")
 					|ProjectSoft
 		script(type="text/javascript")
-			|window.params = {};
+			|window.params = {addr: "127.0.0.1"};
 		script(type="text/javascript")
 			|function getIP(json) {
 			|	window.params.addr = json.ip

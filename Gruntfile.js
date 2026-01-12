@@ -28,6 +28,7 @@ module.exports = function(grunt) {
  * @author       ${PACK.author}
  * @lastupdate   ${year}-${month}-${day}
  */`;
+	PACK.site = "https://projectsoft-studionions.github.io";
 	require('load-grunt-tasks')(grunt);
 	require('time-grunt')(grunt);
 	if(fs.existsSync('copypack.json')) {
