@@ -27,6 +27,7 @@ $e = &$modx->event;
 $params = $e->params;
 
 global $_lang;
+global $which_browser;
 
 switch ($e->name) {
 	case 'OnPluginFormPrerender':

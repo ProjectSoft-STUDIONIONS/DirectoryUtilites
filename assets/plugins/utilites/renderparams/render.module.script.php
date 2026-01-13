@@ -157,6 +157,18 @@ ob_start();
 					case 'color':
 						c = '<input type="color" name="prop_' + key + '" value="' + value + '" size="30" onchange="setParameter(\'' + key + '\',\'' + type + '\',this)" />';
 						break;
+					case 'image':
+						c = '<div style="display: flex; flex-direction: row;flex-wrap: nowrap;">';
+						c += '<input type="text" id="prop_' + key + '" name="prop_' + key + '" value="' + value + '" onchange="setParameter(\'' + key + '\',\'' + type + '\',this)" />';
+						c += '<input type="button" value="Вставить" onclick="BrowseServer(\'prop_' + key + '\')">';
+						c += '</div>';
+						break;
+					case 'file':
+						c = '<div style="display: flex; flex-direction: row;flex-wrap: nowrap;">';
+						c += '<input type="text" id="prop_' + key + '" name="prop_' + key + '" value="' + value + '" onchange="setParameter(\'' + key + '\',\'' + type + '\',this)" />';
+						c += '<input type="button" value="Вставить" onclick="BrowseFileServer(\'prop_' + key + '\')">';
+						c += '</div>';
+						break;
 					default:  // string
 						c = '<input type="text" name="prop_' + key + '" value="' + value + '" onchange="setParameter(\'' + key + '\',\'' + type + '\',this)" />';
 						break;
@@ -230,6 +242,60 @@ ob_start();
 		}
 		currentParams[key][0]['value'] = v;
 		implodeParameters();
+	}
+	var lastImageCtrl;
+	var lastFileCtrl;
+	function OpenServerBrowser(url, width, height ) {
+		var iLeft = (screen.width  - width) / 2 ;
+		var iTop  = (screen.height - height) / 2 ;
+
+		var sOptions = 'toolbar=no,status=no,resizable=yes,dependent=yes' ;
+		sOptions += ',width=' + width ;
+		sOptions += ',height=' + height ;
+		sOptions += ',left=' + iLeft ;
+		sOptions += ',top=' + iTop ;
+
+		var oWindow = window.open( url, 'FCKBrowseWindow', sOptions ) ;
+	}
+	function BrowseServer(ctrl) {
+		lastImageCtrl = ctrl;
+		var w = screen.width * 0.5;
+		var h = screen.height * 0.5;
+		OpenServerBrowser('<?= MODX_MANAGER_URL;?>media/browser/<?= $which_browser;?>/browser.php?Type=images', w, h);
+	}
+	function BrowseFileServer(ctrl) {
+		lastFileCtrl = ctrl;
+		var w = screen.width * 0.5;
+		var h = screen.height * 0.5;
+		OpenServerBrowser('<?= MODX_MANAGER_URL;?>media/browser/<?= $which_browser;?>/browser.php?Type=files', w, h);
+	}
+	function SetUrlChange(el) {
+		if ('createEvent' in document) {
+			var evt = document.createEvent('HTMLEvents');
+			evt.initEvent('change', false, true);
+			el.dispatchEvent(evt);
+		} else {
+			el.fireEvent('onchange');
+		}
+	}
+	function SetUrl(url, width, height, alt) {
+		if(lastFileCtrl) {
+			var c = document.getElementById(lastFileCtrl);
+			if(c && c.value != url) {
+			    c.value = url;
+				SetUrlChange(c);
+			}
+			lastFileCtrl = '';
+		} else if(lastImageCtrl) {
+			var c = document.getElementById(lastImageCtrl);
+			if(c && c.value != url) {
+			    c.value = url;
+				SetUrlChange(c);
+			}
+			lastImageCtrl = '';
+		} else {
+			return;
+		}
 	}
 </script>
 <?php
