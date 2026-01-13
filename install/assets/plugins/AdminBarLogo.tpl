@@ -1,15 +1,15 @@
 //<?php
 /**
- * DirectoryUtilites
+ * AdminBarLogo
  *
- * Плагин Evolution CMS для работы с директориями.
+ * Логотип компании в административной панели
  *
  * @category     plugin
  * @version      2.0.0
  * @package      evo
- * @internal     @events OnManagerLogin,OnManagerLogout,OnDocFormRender,onAfterMoveDocument,OnDocFormSave,OnDocDuplicate
+ * @internal     @events OnManagerMenuPrerender
  * @internal     @modx_category Utilites
- * @internal     @properties &leftPad=Длина имени директории;list;4,5,6,7,8,9,10;4;4;Описание для параметра;
+ * @internal     @properties &logotip=Логотип в Админ Панели;text;assets/plugins/utilites/adminbarlogo/noimage-logotip.png;assets/plugins/utilites/adminbarlogo/noimage-logotip.png;К логотипу будет применён ресайз до размера 140x40
  * @internal     @installset base
  * @internal     @disabled 0
  * @homepage     https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilites#readme
@@ -19,17 +19,17 @@
  * @lastupdate   2026-01-13
  */
 
-/**
- * DirectoryUtilites
+ /**
+ * AdminBarLogo
  *
- * Плагин Evolution CMS для работы с директориями.
+ * Логотип компании в административной панели
  *
  * @category     plugin
  * @version      2.0.0
  * @package      evo
- * @internal     @events OnManagerLogin,OnManagerLogout,OnDocFormRender,onAfterMoveDocument,OnDocFormSave,OnDocDuplicate
+ * @internal     @events OnManagerMenuPrerender
  * @internal     @modx_category Utilites
- * @internal     @properties &leftPad=Длина имени директории;list;4,5,6,7,8,9,10;4;4;Описание для параметра;
+ * @internal     @properties &logotip=Логотип в Админ Панели;text;assets/plugins/utilites/adminbarlogo/noimage-logotip.png;assets/plugins/utilites/adminbarlogo/noimage-logotip.png;К логотипу будет применён ресайз до размера 140x40
  * @internal     @installset base
  * @internal     @disabled 0
  * @homepage     https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilites#readme
@@ -38,4 +38,5 @@
  * @author       Чернышёв Андрей aka ProjectSoft <projectsoft2009@yandex.ru>
  * @lastupdate   2026-01-13
  */
-require MODX_BASE_PATH.'assets/plugins/utilites/directory/plugin.DirectoryUtilites.php';
+
+ include MODX_BASE_PATH . 'assets/plugins/utilites/adminbarlogo/plugin.adminbarlogo.php';

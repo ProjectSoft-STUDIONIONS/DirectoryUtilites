@@ -1,15 +1,14 @@
 //<?php
 /**
- * DirectoryUtilites
+ * TinyMCE4CSS
  *
- * Плагин Evolution CMS для работы с директориями.
+ * Закрепление Блока инструментов TinyMCE.
  *
  * @category     plugin
  * @version      2.0.0
  * @package      evo
- * @internal     @events OnManagerLogin,OnManagerLogout,OnDocFormRender,onAfterMoveDocument,OnDocFormSave,OnDocDuplicate
+ * @internal     @events OnRichTextEditorInit
  * @internal     @modx_category Utilites
- * @internal     @properties &leftPad=Длина имени директории;list;4,5,6,7,8,9,10;4;4;Описание для параметра;
  * @internal     @installset base
  * @internal     @disabled 0
  * @homepage     https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilites#readme
@@ -20,16 +19,15 @@
  */
 
 /**
- * DirectoryUtilites
+ * TinyMCE4CSS
  *
- * Плагин Evolution CMS для работы с директориями.
+ * Закрепление Блока инструментов TinyMCE.
  *
  * @category     plugin
  * @version      2.0.0
  * @package      evo
- * @internal     @events OnManagerLogin,OnManagerLogout,OnDocFormRender,onAfterMoveDocument,OnDocFormSave,OnDocDuplicate
+ * @internal     @events OnRichTextEditorInit
  * @internal     @modx_category Utilites
- * @internal     @properties &leftPad=Длина имени директории;list;4,5,6,7,8,9,10;4;4;Описание для параметра;
  * @internal     @installset base
  * @internal     @disabled 0
  * @homepage     https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilites#readme
@@ -38,4 +36,4 @@
  * @author       Чернышёв Андрей aka ProjectSoft <projectsoft2009@yandex.ru>
  * @lastupdate   2026-01-13
  */
-require MODX_BASE_PATH.'assets/plugins/utilites/directory/plugin.DirectoryUtilites.php';
+require MODX_BASE_PATH.'assets/plugins/utilites/tinymce4css/plugin.tinymce4css.php';
