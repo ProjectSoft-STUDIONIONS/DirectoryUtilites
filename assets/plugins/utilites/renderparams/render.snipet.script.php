@@ -3,7 +3,10 @@ if (!defined('MODX_BASE_PATH')):
 	http_response_code(403);
 	die('For');
 endif;
-ob_start();
+$int_version = (int)version_compare($modx->config["settings_version"], '2.0.0', '>=');
+// Отключаем у версий 2.0.0 и больше
+if(!$int_version):
+	ob_start();
 ?>
 <script type="text/javascript">
 	function showParameters(ctrl)
@@ -316,6 +319,7 @@ ob_start();
 	}
 </script>
 <?php
-$output = ob_get_contents();
-ob_end_clean();
+	$output = ob_get_contents();
+	ob_end_clean();
+endif;
 ?>
