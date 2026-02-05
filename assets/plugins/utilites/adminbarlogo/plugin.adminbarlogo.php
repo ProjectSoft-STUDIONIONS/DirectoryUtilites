@@ -41,6 +41,7 @@ switch ($e->name) {
 @media (min-width: 1200px) {
 	body.light #mainMenu #nav #site::before,
 	body.dark #mainMenu #nav #site::before,
+	body.lightness #mainMenu #nav #site::before,
 	body.darkness #mainMenu #nav #site::before {
 		background-image: url(/$logotip);
 		background-repeat: no-repeat;

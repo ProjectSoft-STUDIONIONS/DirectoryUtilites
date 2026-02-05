@@ -31,6 +31,7 @@ switch ($e->name) {
 	case 'OnManagerTreeInit':
 		$output = <<<EOD
 <script>document.body.classList.add('ElementsInTree');</script>
+<style>.ElementsInTree #tree .actionButtons--eit{top:0!important;}</style>
 EOD;
 		$modx->event->output($output);
 		break;
