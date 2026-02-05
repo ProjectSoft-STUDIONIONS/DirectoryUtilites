@@ -5,11 +5,11 @@
  * Логотип компании в административной панели
  *
  * @category     plugin
- * @version      2.0.0
+ * @version      2.1.1
  * @package      evo
  * @internal     @events OnManagerMenuPrerender
  * @internal     @modx_category Utilites
- * @internal     @properties &logotip=Логотип в Админ Панели;text;assets/plugins/utilites/adminbarlogo/noimage-logotip.png;assets/plugins/utilites/adminbarlogo/noimage-logotip.png;К логотипу будет применён ресайз до размера 140x40
+ * @internal     @properties &logotip=Логотип в Админ Панели;text;assets/plugins/utilites/adminbarlogo/noimage-logotip.svg;assets/plugins/utilites/adminbarlogo/noimage-logotip.svg;К логотипу будет применён ресайз до размера 140x40
  * @internal     @installset base
  * @internal     @disabled 0
  * @homepage     https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilites#readme
@@ -32,7 +32,7 @@ switch ($e->name) {
 		$logotip = $modx->runSnippet('phpthumb', array(
 			'input' => $params["logotip"],
 			'options' => 'w=144,h=40,f=png,far=C',
-			'noImage' => 'assets/plugins/utilites/adminbarlogo/noimage-logotip.png'
+			'noImage' => 'assets/plugins/utilites/adminbarlogo/noimage-logotip.svg'
 		));
 
 		//$out = $logotip;
