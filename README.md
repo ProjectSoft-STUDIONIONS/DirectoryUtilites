@@ -12,7 +12,7 @@
 
 Установку плагина нужно провести через административную панель Evolution CMS.
 
-+ Скачать [последнюю версию плагина](https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilites/releases/latest/download/DirectoryUtilites.zip) для Evolution CMS.
++ Скачать [![последнюю версию плагина)](https://img.shields.io/github/downloads/ProjectSoft-STUDIONIONS/DirectoryUtilites/DirectoryUtilites.zip?style=for-the-badge)](https://github.com/ProjectSoft-STUDIONIONS/DirectoryUtilites/releases/latest/download/DirectoryUtilites.zip) для Evolution CMS.
 + Войдите в административную панель Evolution.
 + Перейдите в модули и запустите модуль `Extras`.
 + Загрузите скачанный файл плагина и установите его.
